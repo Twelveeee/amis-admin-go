@@ -1,0 +1,34 @@
+{
+  "pages": [
+    {
+      "label": "Home",
+      "url": "/",
+      "redirect": "/"
+    },
+    {
+      "label": "分组2",
+      "children": [
+        {
+          "label": "用户管理",
+          "schema": {
+            "type": "page",
+            "title": "用户管理",
+            "body": "页面C"
+          }
+        },
+        {
+          "label": "外部链接",
+          "link": "http://baidu.gitee.io/amis"
+        },
+        {
+          "label": "部门管理",
+          "schemaApi": "${API_HOST}/pages/department"
+        },
+        {
+          "label": "jsonp 返回示例",
+          "schemaApi": "jsonp:${API_HOST}/jsonptest?callback=jsonpCallback"
+        }
+      ]
+    }
+  ]
+}
