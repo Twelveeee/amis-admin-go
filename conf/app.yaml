@@ -5,3 +5,9 @@ httpServer:
   readTimeout: 2000
   writeTimeout: 2000
   idleTimeout: 2000
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  username: root
+  password: root
+  dbName: go-admin

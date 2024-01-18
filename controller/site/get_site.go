@@ -3,6 +3,7 @@ package site
 import (
 	"context"
 
+	"github.com/gin-gonic/gin"
 	"github.com/twelveeee/amis-admin-go/controller"
 	"github.com/twelveeee/amis-admin-go/util"
 )
@@ -13,7 +14,7 @@ type getSiteController struct {
 	Resp interface{}
 }
 
-func NewGetSiteController(ctx context.Context) controller.Controller {
+func NewGetSiteController(ctx *gin.Context) controller.Controller {
 	return &getSiteController{
 		Ctx:  ctx,
 		Req:  nil,

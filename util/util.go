@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"io"
 	"os"
+
+	"gopkg.in/yaml.v2"
 )
 
 func ReadFileJson(filepath string) (map[string]interface{}, error) {
@@ -26,4 +28,12 @@ func ReadFileJson(filepath string) (map[string]interface{}, error) {
 
 	// return jsonString, nil
 	return ret, nil
+}
+
+func LoadYaml(path string, v interface{}) error {
+	file, err := os.ReadFile(path)
+	if err != nil {
+		return err
+	}
+	return yaml.Unmarshal(file, v)
 }

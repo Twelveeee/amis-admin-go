@@ -1,10 +1,15 @@
 package conf
 
 import (
-	"os"
+	"fmt"
+	"sync"
 
-	"gopkg.in/yaml.v2"
+	"github.com/twelveeee/amis-admin-go/util"
 )
+
+var AppConf *Config
+
+var confOnce sync.Once
 
 type Config struct {
 	AppName string `yaml:"appName"`
@@ -16,22 +21,35 @@ type Config struct {
 		WriteTimeout int `yaml:"writeTimeout"` // ms
 		IdleTimeout  int `yaml:"idleTimeout"`  // ms
 	} `yaml:"httpServer"`
+
+	Mysql struct {
+		Host     string `yaml:"host"`
+		Port     int    `yaml:"port"`
+		Username string `yaml:"username"`
+		Password string `yaml:"password"`
+		DBName   string `yaml:"dbName"`
+	} `yaml:"mysql"`
 }
 
-func ParseConfig(path string) (*Config, error) {
+func parseConfig(path string) (*Config, error) {
 	var config Config
-	if err := LoadYaml(path, &config); err != nil {
+	if err := util.LoadYaml(path, &config); err != nil {
 		return nil, err
 	}
 	return &config, nil
 }
 
-func LoadYaml(path string, v interface{}) error {
-	file, err := os.ReadFile(path)
-	if err != nil {
-		return err
-	}
-	return yaml.Unmarshal(file, v)
+func InitConfig(path string) error {
+	confOnce.Do(func() {
+		conf, err := parseConfig(path)
+		if err != nil {
+			fmt.Println(err)
+		}
+		AppConf = conf
+	})
+	return nil
 }
 
-// func AppInit(Config)
+func GetAppConf() *Config {
+	return AppConf
+}

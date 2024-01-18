@@ -1,0 +1,12 @@
+syntax = "proto3";
+package user;
+option go_package = "./;user";
+
+message UserLoginRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message UserLoginResponse {
+    string token = 1;
+}
