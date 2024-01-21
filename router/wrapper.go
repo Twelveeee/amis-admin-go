@@ -17,15 +17,15 @@ func requestRunner(createFn createFunc, respFn respFunc) gin.HandlerFunc {
 
 		req := ctrl.Request()
 
-		if req == nil {
-			respFn(ctx, http.StatusInternalServerError, util.SystemErr, "req nil", nil)
-			return
-		}
-
 		if err := ctx.ShouldBind(&req); err != nil {
 			respFn(ctx, http.StatusInternalServerError, util.SystemErr, err.Error(), nil)
 			return
 		}
+
+		// if req == nil {
+		// 	respFn(ctx, http.StatusInternalServerError, util.SystemErr, "req nil", nil)
+		// 	return
+		// }
 
 		if err := ctrl.CheckParam(); err != nil {
 			respFn(ctx, http.StatusOK, util.ParamErr, err.Error(), nil)
@@ -56,38 +56,18 @@ func jsonResponse(ctx *gin.Context, status, errno int, errmsg string, data inter
 
 func ControllerWrapperForHtml(filePath, title string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
+		host := ctx.Request.Host
+		// 获取协议
+		protocol := "http://"
+		if ctx.Request.TLS != nil {
+			protocol = "https://"
+		}
+		host = protocol + host
 		ctx.HTML(http.StatusOK, filePath, gin.H{
-			"title": title,
+			"title":    title,
+			"API_HOST": host,
 		})
 	}
-}
-
-func getEncodeType(ctx *gin.Context) string {
-	httpMethod := ctx.Request.Method
-	if httpMethod == "POST" {
-		accept := ctx.GetHeader("Content-Type")
-		if accept == "" {
-			return "json"
-		}
-		if accept == "application/json" {
-			return "json"
-		}
-		if accept == "application/javascript" {
-			return "jsonp"
-		}
-		if accept == "application/x-www-form-urlencoded" {
-			return "form"
-		}
-		if accept == "multipart/form-data" {
-			return "form-data"
-		}
-		return "json"
-	}
-	return "url"
-}
-
-func jsonReqDecode(ctx *gin.Context, req interface{}) error {
-	return ctx.ShouldBindJSON(req)
 }
 
 // const amisJsonPTemplate = `(function() {

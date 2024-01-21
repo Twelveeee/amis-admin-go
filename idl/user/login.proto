@@ -8,5 +8,5 @@ message UserLoginRequest {
 }
 
 message UserLoginResponse {
-    string token = 1;
+    string user_id = 1;
 }

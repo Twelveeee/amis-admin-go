@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>登陆</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="stylesheet" href="https://unpkg.com/amis@3.3.0/sdk/sdk.css" />
+    <link rel="stylesheet" href="https://unpkg.com/amis@3.3.0/sdk/antd.css" />
+    <link rel="stylesheet" href="https://unpkg.com/amis@3.3.0/sdk/helper.css" />
+    <link rel="stylesheet" href="https://unpkg.com/amis@3.3.0/sdk/iconfont.css" />
+    <script src="https://unpkg.com/amis@3.3.0/sdk/sdk.js"></script>
+    <script src="https://unpkg.com/vue@2"></script>
+    <script src="https://unpkg.com/history@4.10.1/umd/history.js"></script>
+  <style>
+    html,
+    body,
+    .app-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root" class="app-wrapper"></div>
+  <script type="text/javascript">
+    (function () {
+      let amis = amisRequire('amis/embed');
+      let amisJSON = {
+        "type": "page",
+        "title": "",
+        "body": [
+          {
+            "type": "grid",
+            "columns": [
+              {
+                "body": [
+                  {
+                    "type": "tpl",
+                    "tpl": " ",
+                    "inline": false,
+                    "style": {
+                      "marginTop": "35%"
+                    }
+                  }
+                ],
+                "md": ""
+              },
+              {
+                "body": [
+                  {
+                    "type": "tpl",
+                    "tpl": " ",
+                    "inline": false,
+                    "style": {
+                      "marginTop": "20px"
+                    }
+                  }
+                ],
+                "md": ""
+              }
+            ],
+            "className": "m-r-md m-l-md p-r-md p-l-md"
+          },
+          {
+            "type": "grid",
+            "columns": [
+              {
+                "body": [
+                  {
+                    "type": "tpl",
+                    "tpl": "amis-admin-go",
+                    "inline": false,
+                    "style": {
+                      "borderStyle": "none",
+                      "fontSize": "50px",
+                      "fontWeight": "bold",
+                      "marginRight": "",
+                      "marginLeft": "",
+                      "paddingRight": "",
+                      "paddingLeft": "",
+                      "opacity": 1,
+                      "textAlign": "center",
+                      "marginTop": ""
+                    }
+                  },
+                  {
+                    "type": "tpl",
+                    "tpl": "amis-admin-go 结合amis和gin",
+                    "inline": false,
+                    "style": {
+                      "opacity": 0.85,
+                      "textAlign": "center",
+                      "fontWeight": "normal",
+                      "marginTop": "0",
+                      "paddingTop": "0",
+                      "color": "#878787",
+                      "marginBottom": "30px"
+                    },
+                    "wrapperComponent": "div"
+                  }
+                ],
+                "valign": "top",
+                "md": ""
+              },
+              {
+                "body": [
+                  {
+                    "type": "tabs",
+                    "tabs": [
+                      {
+                        "title": "账号密码登陆",
+                        "body": [
+                          {
+                            "type": "form",
+                            "title": "",
+                            // "debug": true,
+                            "name": "accountForm",
+                            "body": [
+                              {
+                                "label": "",
+                                "type": "input-text",
+                                "name": "account",
+                                "required": false,
+                                "placeholder": "账户",
+                                "remark": null,
+                                "autoComplete": false
+                              },
+                              {
+                                "type": "input-password",
+                                "label": "",
+                                "name": "password",
+                                "placeholder": "密码",
+                                "inline": false,
+                                "options": [],
+                                "autoComplete": false,
+                                "remark": null,
+                                "size": ""
+                              },
+                              {
+                                "type": "checkboxes",
+                                "label": "",
+                                "name": "autoLogin",
+                                "options": [
+                                  {
+                                    "label": "自动登录",
+                                    "value": 1
+                                  }
+                                ],
+                                "joinValues": true,
+                                "inline": true
+                              },
+                              {
+                                "type": "button",
+                                "label": "登陆",
+                                "actionType": "ajax",
+                                "size": "md",
+                                "level": "primary",
+                                "block": true,
+                                "redirect": "/",
+                                "api": {
+                                  "method": "post",
+                                  "url": "/login",
+                                  "dataType": "json",
+                                  "data": {
+                                    "username": "${account}",
+                                    "password": "${password}",
+                                    "autoLogin": "${autoLogin}"
+                                  },
+                                }
+                              }
+                            ],
+                            "mode": "normal",
+                            "wrapWithPanel": false
+                          }
+                        ]
+                      }],
+                    "tabsMode": "line",
+                    "unmountOnExit": false,
+                    "mountOnEnter": false
+                  },
+                  {
+                    "type": "container",
+                    "body": [
+                     {
+                        "type": "submit",
+                        "label": "游客模式",
+                        "actionType": "link",
+                        "link": "/",
+                        "size": "md",
+                        "level": "link",
+                        "block": false,
+                        "className": "",
+                        "blank": false
+                      }
+                    ],
+                    "style": {
+                      "paddingTop": "0",
+                      "paddingRight": "0"
+                    }
+                  }
+                ],
+                "valign": "top",
+                "md": ""
+              }
+            ],
+            "align": "center",
+            "valign": "top",
+            "gap": "base",
+            "className": "m-r-md m-l-md p-r-md p-l-md"
+          },
+          {
+            "type": "container",
+            "body": [
+              {
+                "type": "tpl",
+                "tpl": "<footer class='antd-Layout-footer' role='footer'><span class='antd-TplField' data-debug-id='21a72077-b7b9-4000-adb5-39ffc48eb000'><span><div class='p-2 text-center bg-light'> <a href='https://beian.miit.gov.cn/'>闽ICP备20004781号</a></div></footer>",
+                "inline": false,
+                "style": {
+                  "color": "#9b9b9b",
+                  "textAlign": "center"
+                },
+                "className": ".amis-scope .antd-Layout-footer"
+              }
+            ]
+          }
+        ],
+        "messages": {},
+        "style": {
+          "backgroundColor": "",
+          "backgroundImage": "https://fconnected.oss-cn-beijing.aliyuncs.com/common/background_login.svg"
+        }
+      };
+      // window.enableAMISDebug = true;
+      let amisScoped = amis.embed(
+        '#root',
+        amisJSON,
+        {
+          location: history.location
+        },
+        {
+          theme: 'antd',
+          enableAMISDebug: true,
+          requestAdaptor(api) {
+            // if (api.url == "/pages/site.json") {
+            //   return api;
+            // }
+            // api.url = "http://twelveeee.top" + api.url;
+            // api.url = api.url;
+            console.log(api);
+            return api;
+          },
+        });
+    })();
+  </script>
+</body>
+
+</html>

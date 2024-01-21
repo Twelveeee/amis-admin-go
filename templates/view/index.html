@@ -51,7 +51,8 @@
           footer: '<div class="p-2 text-center bg-light">底部区域</div>',
           asideBefore: '<div class="p-2 text-center">菜单前面区域</div>',
           asideAfter: '<div class="p-2 text-center">菜单后面区域</div>',
-          api: '${API_HOST}/site'
+          api: '${API_HOST}/admin/site'
+          // api: '/site'
         };
 
         function normalizeLink(to, location = history.location) {
@@ -125,7 +126,7 @@
             context: {
               // 全局上下文数据, 非受控的数据，无论哪一层都能获取到，包括弹窗自定义数据映射后都能获取到。
               // 可以用来放一下全局配置等。比如 API_HOST, 这样页面配置里面可以通过 ${API_HOST} 来获取到。
-              API_HOST: 'http://192.168.102.132:8080'
+              API_HOST: '{{.API_HOST}}'
             }
           },
           {

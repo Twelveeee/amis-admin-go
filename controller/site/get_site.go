@@ -36,7 +36,7 @@ func (c *getSiteController) CheckParam() error {
 }
 
 func (c *getSiteController) Request() interface{} {
-	return nil
+	return c.Req
 }
 
 func (c *getSiteController) Response() interface{} {
